@@ -1,7 +1,7 @@
 const express = require('express');
-const routes = require('./routes');
-
-// ...
+const { login, createUsers } = require('./routes');
+const { 
+validateName, validateEmail, validatePassword, emailExists } = require('./middlewares/validations');
 
 const app = express();
 
@@ -11,12 +11,14 @@ app.get('/', (_request, response) => {
 });
 
 app.use(express.json());
+
 const apiRoutes = express.Router();
 
-apiRoutes.post('/login', routes.login);
+apiRoutes.post('/login', login);
+apiRoutes.post('/user', validateName, validateEmail, validatePassword, emailExists, createUsers);
 
-// ...
 app.use(apiRoutes);
+
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
 module.exports = app;
