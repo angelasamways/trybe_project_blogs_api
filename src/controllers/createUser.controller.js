@@ -11,7 +11,7 @@ const createUser = async (req, res) => {
       algorithm: 'HS256',
     };
     if (!user) throw Error;
-    const token = (data) => jwt.sign(data, secret, jwtConfig);
+    const token = jwt.sign({ data: { userId: user.id } }, secret, jwtConfig);
     return res.status(201).json({ token });
 };
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const { login, createUser, getUsers } = require('./routes');
+const { login, createUser, getUsers, getById } = require('./routes');
 const { 
 validateName,
 validateEmail,
@@ -22,6 +22,7 @@ const apiRoutes = express.Router();
 apiRoutes.post('/login', login);
 apiRoutes.post('/user', validateName, validateEmail, validatePassword, emailExists, createUser);
 apiRoutes.get('/user', validateJWT, getUsers);
+apiRoutes.get('/user/:id', validateJWT, getById);
 
 app.use(apiRoutes);
 
