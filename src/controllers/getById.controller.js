@@ -1,12 +1,14 @@
 const { UserService } = require('../services');
 
 const getById = async (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
     const user = await UserService.getByUserId(id);
-    if (!user) {
-      res.status(404).json({ message: 'User does not exist' });
+    if (!user) throw Error;
+    return res.status(200).json(user);
+    } catch (err) {
+      return res.status(404).json({ message: 'User does not exist' });
     }
-    res.status(200).json(user);
 };
 
 module.exports = getById;
