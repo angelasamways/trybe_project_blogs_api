@@ -1,7 +1,12 @@
 const express = require('express');
-const { login, createUsers } = require('./routes');
+const { login, createUser, getUsers } = require('./routes');
 const { 
-validateName, validateEmail, validatePassword, emailExists } = require('./middlewares/validations');
+validateName,
+validateEmail,
+validatePassword,
+emailExists,
+} = require('./middlewares/validations');
+const validateJWT = require('./auth/validateJWT');
 
 const app = express();
 
@@ -15,7 +20,8 @@ app.use(express.json());
 const apiRoutes = express.Router();
 
 apiRoutes.post('/login', login);
-apiRoutes.post('/user', validateName, validateEmail, validatePassword, emailExists, createUsers);
+apiRoutes.post('/user', validateName, validateEmail, validatePassword, emailExists, createUser);
+apiRoutes.get('/user', validateJWT, getUsers);
 
 app.use(apiRoutes);
 
