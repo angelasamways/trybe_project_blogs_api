@@ -1,5 +1,13 @@
 const express = require('express');
-const { login, createUser, getUsers, getById, createCategory, getCategory } = require('./routes');
+const {
+login,
+createUser,
+getUsers,
+getById,
+createCategory,
+getCategory,
+createPost, 
+} = require('./routes');
 const { 
 validateName,
 validateEmail,
@@ -25,6 +33,7 @@ apiRoutes.get('/user', validateJWT, getUsers);
 apiRoutes.get('/user/:id', validateJWT, getById);
 apiRoutes.post('/categories', validateJWT, createCategory);
 apiRoutes.get('/categories', validateJWT, getCategory);
+apiRoutes.post('/post', validateJWT, createPost);
 
 app.use(apiRoutes);
 
