@@ -11,18 +11,18 @@ const insertNewPostCategory = async (categoryIds, postId, t) => {
       { transaction: t })));
 };
 
-const createPost = async ({ title, content, categoryId, userId }) => {
+const createPost = async ({ title, content, categoryIds, userId }) => {
   try {
     const newPost = await sequelize.transaction(async (t) => {
       const post = await BlogPost
         .create({ title, content, userId, published: Date.now(), updated: Date.now() },
           { transaction: t });
-      await insertNewPostCategory(categoryId, post.id, t);
+      await insertNewPostCategory(categoryIds, post.dataValue.id, t);
       return post;
     });
     return { type: null, message: newPost };
   } catch (err) {
-    return { type: null, message: err.message };
+    return { message: err.message };
   }
 };
 
