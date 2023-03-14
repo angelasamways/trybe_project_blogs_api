@@ -11,8 +11,8 @@ const createPost = async (req, res) => {
   if (!title || !content || !categoryIds) {
     return res.status(400).json({ message: 'Some required fields are missing' });
   }
-  const post = await PostService.createPost({ title, content, categoryIds, userId });
-  // console.log(post);
+  const post = await PostService.createPost({ title, content, categoryIds, userId }); 
+  // console.log({ title, content, categoryIds, userId });
   return res.status(201).json(post);
 };
 

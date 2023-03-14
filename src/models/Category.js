@@ -9,8 +9,7 @@ const Category = (sequelize, DataTypes) => {
     tableName: 'categories',
   },
   );
-
-  return Category;
+   return Category;
 };
 
 module.exports = Category;
